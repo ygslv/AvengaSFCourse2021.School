@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Subject__c</fullName>
+    <description>The subject of the class.</description>
+    <externalId>false</externalId>
+    <label>Subject</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Algebra</fullName>
+                <default>false</default>
+                <label>Algebra</label>
+            </value>
+            <value>
+                <fullName>Geometry</fullName>
+                <default>false</default>
+                <label>Geometry</label>
+            </value>
+            <value>
+                <fullName>Statistics</fullName>
+                <default>false</default>
+                <label>Statistics</label>
+            </value>
+            <value>
+                <fullName>Biology</fullName>
+                <default>false</default>
+                <label>Biology</label>
+            </value>
+            <value>
+                <fullName>Chemistry</fullName>
+                <default>false</default>
+                <label>Chemistry</label>
+            </value>
+            <value>
+                <fullName>Physics</fullName>
+                <default>false</default>
+                <label>Physics</label>
+            </value>
+            <value>
+                <fullName>Physics (Advanced)</fullName>
+                <default>false</default>
+                <label>Physics (Advanced)</label>
+            </value>
+            <value>
+                <fullName>Economics</fullName>
+                <default>false</default>
+                <label>Economics</label>
+            </value>
+            <value>
+                <fullName>Geography</fullName>
+                <default>false</default>
+                <label>Geography</label>
+            </value>
+            <value>
+                <fullName>World History</fullName>
+                <default>false</default>
+                <label>World History</label>
+            </value>
+            <value>
+                <fullName>English Language</fullName>
+                <default>false</default>
+                <label>English Language</label>
+            </value>
+            <value>
+                <fullName>German Language</fullName>
+                <default>false</default>
+                <label>German Language</label>
+            </value>
+            <value>
+                <fullName>Psychology</fullName>
+                <default>false</default>
+                <label>Psychology</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

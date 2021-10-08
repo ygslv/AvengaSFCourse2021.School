@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Can_Student_Have_Academic_Scholarship</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF( TEXT(Year_of_Study__c) = &quot;1&quot; &amp;&amp; TEXT( Scholarship__c) = &quot;Academic&quot;, TRUE, FALSE)</errorConditionFormula>
+    <errorDisplayField>Scholarship__c</errorDisplayField>
+    <errorMessage>Field Scholarship.</errorMessage>
+</ValidationRule>

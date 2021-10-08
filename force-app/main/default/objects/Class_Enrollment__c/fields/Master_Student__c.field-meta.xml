@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Master_Student__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Indicates if the student is a master student for this class.</description>
+    <externalId>false</externalId>
+    <label>Master Student</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Advanced_Physical_Class_Requirements</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF(VALUE(TEXT(Student__r.Year_of_Study__c)) &lt; 3 &amp;&amp;  TEXT( Class__r.Subject__c) = &quot;Physics (Advanced)&quot;, TRUE, FALSE)</errorConditionFormula>
+    <errorDisplayField>Class__c</errorDisplayField>
+    <errorMessage>Field Class</errorMessage>
+</ValidationRule>

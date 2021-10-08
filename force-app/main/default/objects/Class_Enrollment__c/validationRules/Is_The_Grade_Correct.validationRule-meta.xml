@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_The_Grade_Correct</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF(Grade__c &lt; 1 || Grade__c &gt; 100, TRUE, FALSE)</errorConditionFormula>
+    <errorDisplayField>Grade__c</errorDisplayField>
+    <errorMessage>Field Grade.</errorMessage>
+</ValidationRule>
