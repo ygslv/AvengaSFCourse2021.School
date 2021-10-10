@@ -40,6 +40,14 @@ public class SchoolDAO {
         return classAttendance;
     }
 
+    public static List<Class_Enrollment__c> getTopStudents(Id classId){
+
+        List<Class_Enrollment__c> topStudents = [SELECT Student__c FROM Class_Enrollment__c ORDER BY sDESC LIMIT 10];
+        //WHERE Class__r.Id = :classId
+
+        return topStudents;
+    }
+
     public static List<Student__c> getStudentsWithScholarship(Id classId){
 
         // Ініціалізація ліста в який будуть зберігатися кінцеві студенти
