@@ -42,8 +42,11 @@ public class SchoolDAO {
 
     public static List<Class_Enrollment__c> getTopStudents(Id classId){
 
-        List<Class_Enrollment__c> topStudents = [SELECT Student__c FROM Class_Enrollment__c ORDER BY sDESC LIMIT 10];
-        //WHERE Class__r.Id = :classId
+        // Селект Студенів з Енролу
+        // Перевірка на те, чи клас ІД = класу, який в інпуті
+        // Сортування за оцінкою (DESC - від більшого до меншого)
+        // Ліміт 10
+        List<Class_Enrollment__c> topStudents = [SELECT Student__c FROM Class_Enrollment__c WHERE Class__r.Id = :classId ORDER BY Grade__c DESC LIMIT 10];
 
         return topStudents;
     }
