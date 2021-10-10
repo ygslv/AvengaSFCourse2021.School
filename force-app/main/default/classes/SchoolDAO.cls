@@ -40,38 +40,36 @@ public class SchoolDAO {
         return classAttendance;
     }
 
-    public static List<Student__c> getStudentsWithScholarship(){
+    public static List<Student__c> getStudentsWithScholarship(Id classId){
 
-        Id classId = 'a000900000IdYL9AAN';
-
-        // має вивиести ось це a010900001XDLKHAA5
-
+        // Ініціалізація ліста в який будуть зберігатися кінцеві студенти
         List<Student__c> studentsWithScholarshipForSpecificClass = new List<Student__c>();
 
+        // Кверяєм ВСІХ студентів з стипендією
         List<Student__c> studentsWithScholarship = [SELECT Id FROM Student__c WHERE Scholarship__c != 'Unassigned' AND Scholarship__c != NULL];
 
+        // Кверяєм всі переведення студентів в класи
         Set<Class_Enrollment__c> classEnrollments = new Set<Class_Enrollment__c>([SELECT Class__r.Id, Student__r.Id FROM Class_Enrollment__c]);
 
-        for (Student__c s : allStudentsWithScholarship){
+        // Проходимось циклом по студентах з стипендією
+        for (Student__c currentStudent : studentsWithScholarship){
             
-            Id currentStudentId = s.Id;
+            Id currentStudentId = currentStudent.Id;
 
+            // Проходимось циклом по енролах (для перевіруи пари студент - клас)
             for (Class_Enrollment__c currentEnrollmet : classEnrollments){
             
                 Id enrollmentClassId = currentEnrollmet.Class__r.Id;
                 Id enrollmentStudentId = currentEnrollmet.Student__r.Id;
 
+                // Якщо ідшки класу і студента сходяться з студентом якого перевіряєм
+                // і класом, який заданий в інпуті - додаємо до порожнього ліста
                 if (enrollmentClassId == classId && enrollmentStudentId == currentStudentId){
-
+                    studentsWithScholarshipForSpecificClass.add(currentStudent);
                 }
-    
-                System.debug('Class: ' + currentClass);
             }
         }
 
         return studentsWithScholarshipForSpecificClass;
     }
 }
-
-// Return map, where key = Class Id and value = how many students are attending this class.
-// Don't use Number_of_Students__c field.
