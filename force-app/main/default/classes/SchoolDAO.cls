@@ -39,6 +39,38 @@ public class SchoolDAO {
 
         return classAttendance;
     }
+
+    public static List<Student__c> getStudentsWithScholarship(){
+
+        Id classId = 'a000900000IdYL9AAN';
+
+        // має вивиести ось це a010900001XDLKHAA5
+
+        List<Student__c> studentsWithScholarshipForSpecificClass = new List<Student__c>();
+
+        List<Student__c> studentsWithScholarship = [SELECT Id FROM Student__c WHERE Scholarship__c != 'Unassigned' AND Scholarship__c != NULL];
+
+        Set<Class_Enrollment__c> classEnrollments = new Set<Class_Enrollment__c>([SELECT Class__r.Id, Student__r.Id FROM Class_Enrollment__c]);
+
+        for (Student__c s : allStudentsWithScholarship){
+            
+            Id currentStudentId = s.Id;
+
+            for (Class_Enrollment__c currentEnrollmet : classEnrollments){
+            
+                Id enrollmentClassId = currentEnrollmet.Class__r.Id;
+                Id enrollmentStudentId = currentEnrollmet.Student__r.Id;
+
+                if (enrollmentClassId == classId && enrollmentStudentId == currentStudentId){
+
+                }
+    
+                System.debug('Class: ' + currentClass);
+            }
+        }
+
+        return studentsWithScholarshipForSpecificClass;
+    }
 }
 
 // Return map, where key = Class Id and value = how many students are attending this class.
