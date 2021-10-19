@@ -1,4 +1,4 @@
-public class н {
+public class SchoolService {
     
     public static void enrollStudentToClass(Id classId, Id studentId) {
 
@@ -29,27 +29,20 @@ public class н {
 
         Decimal studentAverageGrades = [SELECT Average_Grade__c FROM Student__c WHERE Id = :studentId].Average_Grade__c;
         
-        String scholarship;
-
         // If at least one class enrollment has no 
         // grade - a scholarship cannot be assigned yet.
         if (studentAverageGrades == null || studentAverageGrades < 71){
-
-            scholarship = 'Unassigned';
+            update new Student__c(Id = studentId, Scholarship__c = 'Unassigned');
         }
         // In order to have a scholarship, students must have 
         // an average grade between 71 and 87 of all attended classes.
         else if (studentAverageGrades < 87 && studentAverageGrades >= 71){
-
-            scholarship = 'Regular';
+            update new Student__c(Id = studentId, Scholarship__c = 'Regular');
         }
         // In order to have increased scholarship, students must 
         // have an average grade higher than 88 of all attended classes.
         else if (studentAverageGrades >= 88){
-
-            scholarship = 'Increased';
+            update new Student__c(Id = studentId, Scholarship__c = 'Increased');
         }    
-бл
-        update new Student__c(Id = studentId, Scholarship__c = scholarship);
     }
 }
