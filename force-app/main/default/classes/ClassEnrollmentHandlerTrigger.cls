@@ -9,42 +9,61 @@ public class ClassEnrollmentHandlerTrigger {
         exceptionByDuplicateStudents(ClassEnrollments);
     }
 
-    public static void exceptionByYearOfStudy(List<Class_Enrollment__c> ClassEnrollments){
+    public static void exceptionByYearOfStudy(List<Class_Enrollment__c> classEnrollments){
 
-        for (Class_Enrollment__c classEnrollment : ClassEnrollments){
+        Map<Id, Class__c> classesByYearOfStudy = new Map<Id, Class__c>([SELECT Year_Of_Study__c FROM Class__c]);
+        Map<Id, Student__c> studentsByYearOfStudy = new Map<Id, Student__c>([SELECT Year_Of_Study__c FROM Student__c]);
 
-            Class__c currentClass = [
-                SELECT
-                    Year_Of_Study__c
-                FROM
-                    Class__c
-                WHERE 
-                    Id = :classEnrollment.Class__c   
-            ];
-                    
-            Student__c currentStudent = [
-                SELECT
-                    Year_Of_Study__c
-                FROM
-                    Student__c
-                WHERE
-                    Id = :classEnrollment.Student__c
-            ];
+        for (Class_Enrollment__c triggerClassEnrollment : classEnrollments) {
+
+            if (classesByYearOfStudy.get(triggerClassEnrollment.Class__c).Year_Of_Study__c != studentsByYearOfStudy.get(triggerClassEnrollment.Student__c).Year_Of_Study__c){
                 
-            if (currentClass.Year_Of_Study__c != currentStudent.Year_of_Study__c) {
-                
-                classEnrollment.addError('Year of study field on the student record does not match with the year of study field on the class record');
-            }     
+                triggerClassEnrollment.addError('Year of study field on the student record does not match with the year of study field on the class record');
+            }
         }
     }
 
-    public static void exceptionByDuplicateStudents(List<Class_Enrollment__c> ClassEnrollments){
-        
-        for (Class_Enrollment__c classEnrollment : ClassEnrollments){
+    public static void exceptionByDuplicateStudents(List<Class_Enrollment__c> classEnrollments){
 
-            if (![SELECT Class__c, Student__c FROM Class_Enrollment__c WHERE Class__c = :classEnrollment.Class__c AND Student__c = :classEnrollment.Student__c].isEmpty()) {
-                classEnrollment.addError('Such a student already exists in such a class');
-            }   
+        Set<Class_Enrollment__c> myset = new Set<Class_Enrollment__c>();
+        List<Class_Enrollment__c> classEnrollmentsNoDuplicates = new List<Class_Enrollment__c>();
+
+        Map<Id, Class_Enrollment__c> existentClassEnrollments = new Map<Id, Class_Enrollment__c>(
+            [SELECT 
+                Class__c, Student__c
+            FROM 
+                Class_Enrollment__c
+            ]);
+        
+        // Remove duplicates from insertion list (Trigger.new)
+        // Add Error about duplicates
+        for (Class_Enrollment__c currentClassEnrollment : classEnrollments) {
+            
+            if (myset.add(currentClassEnrollment)) {
+
+                classEnrollmentsNoDuplicates.add(currentClassEnrollment);
+            }
+            else {
+
+                currentClassEnrollment.addError('Such a student already exists in the current insertion');
+            }
+        }
+        
+        for (Class_Enrollment__c currentClassEnrollment : classEnrollmentsNoDuplicates) {
+
+            Id currentClassId = currentClassEnrollment.Class__c;
+            Id currentStudentId = currentClassEnrollment.Student__c;
+
+            for (Id existentClassEnrollment : existentClassEnrollments.keySet()) {
+                
+                Id existentClassId = existentClassEnrollments.get(existentClassEnrollment).Class__c;
+                Id existentStudentId = existentClassEnrollments.get(existentClassEnrollment).Student__c;
+                
+                if (currentClassId == currentClassId && currentStudentId == existentStudentId){
+
+                    currentClassEnrollment.addError('Such a student already exists in the such class');
+                }
+            }
         }
     }
 }
