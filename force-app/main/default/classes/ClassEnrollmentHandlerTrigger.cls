@@ -54,12 +54,12 @@ public class ClassEnrollmentHandlerTrigger {
             Id currentClassId = currentClassEnrollment.Class__c;
             Id currentStudentId = currentClassEnrollment.Student__c;
 
-            for (Id existentClassEnrollment : existentClassEnrollments.keySet()) {
+            for (Id existentClassEnrollmentId : existentClassEnrollments.keySet()) {
                 
-                Id existentClassId = existentClassEnrollments.get(existentClassEnrollment).Class__c;
-                Id existentStudentId = existentClassEnrollments.get(existentClassEnrollment).Student__c;
+                Id existentClassId = existentClassEnrollments.get(existentClassEnrollmentId).Class__c;
+                Id existentStudentId = existentClassEnrollments.get(existentClassEnrollmentId).Student__c;
                 
-                if (currentClassId == currentClassId && currentStudentId == existentStudentId){
+                if (currentClassId == existentClassId && currentStudentId == existentStudentId){
 
                     currentClassEnrollment.addError('Such a student already exists in the such class');
                 }

@@ -61,7 +61,7 @@ public class SchoolDAO {
 
         // Кверяєм всі переведення студентів в класи
         Set<Class_Enrollment__c> classEnrollments = new Set<Class_Enrollment__c>([SELECT Class__r.Id, Student__r.Id FROM Class_Enrollment__c]);
-
+        
         // Проходимось циклом по студентах з стипендією
         for (Student__c currentStudent : studentsWithScholarship){
             
