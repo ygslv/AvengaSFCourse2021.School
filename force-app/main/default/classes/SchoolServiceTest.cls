@@ -22,10 +22,12 @@ private class SchoolServiceTest {
         insert testClasses;        
     }
 
-    @isTest static void testEnrollStudentToClass() {
+    @isTest static void testEnrollStudentToClass_ExceptionByDuplicates() {
         
         List <Student__c> students = [SELECT Id FROM Student__c];
         List <Class__c> classes = [SELECT Id FROM Class__c];
+
+        Boolean isFailed = false;
         
         try {
             
@@ -34,11 +36,14 @@ private class SchoolServiceTest {
         } 
         catch(DmlException e) {
 
+            isFailed = true; 
             System.assert(e.getMessage().contains('Such a student already exists in the such class'));
         }
+
+        System.assertEquals(true, isFailed);
     }
 
-    @isTest static void testEnrollStudentToClass_ExceptionByDuplicates() {
+    @isTest static void testEnrollStudentToClass() {
         
         List <Student__c> students = [SELECT Id FROM Student__c];
         List <Class__c> classes = [SELECT Id FROM Class__c];
@@ -59,14 +64,19 @@ private class SchoolServiceTest {
         List <Student__c> students = [SELECT Id FROM Student__c];
         List <Class__c> classes = [SELECT Id FROM Class__c];
         
+        Boolean isFailed = false;
+
         try {
             
             SchoolService.enrollStudentToClass(classes[0].Id, students[1].Id);
         } 
         catch(DmlException e) {
 
+            isFailed = true;
             System.assert(e.getMessage().contains('Year of study field on the student record does not match with the year of study field on the class record'));
         }
+
+        System.assertEquals(true, isFailed);
     }
 
     @isTest static void testSetGrade_ByStudentAndClassIds() {
@@ -115,44 +125,60 @@ private class SchoolServiceTest {
         System.assertEquals('Academic', studentScholarship);
     }
 
-    @isTest static void testRecalculateScholarship() {
+    @isTest static void testRecalculateScholarship_Increased() {
 
         List <Student__c> students = [SELECT Id FROM Student__c];
         List <Class__c> classes = new List <Class__c>();
         
         String studentScholarship;
 
-        for (Integer i = 0; i < 3; i++) {
-
-            classes.add(new Class__c(Year_of_Study__c = '1'));
-        }
-
-        insert classes;
-        classes.clear();
-
         classes = [SELECT Id FROM Class__c WHERE Year_of_Study__c = '1'];
 
-        // Current average grade is 100 > 88
         insert new Class_Enrollment__c(Class__c = classes[0].Id, Student__c = students[0].Id, Grade__c = 100);
+
+        Test.startTest();
         SchoolService.recalculateScholarship(students[0].Id);
+        Test.stopTest();
         
         studentScholarship = string.valueof([SELECT Scholarship__c FROM Student__c WHERE Id = :students[0].Id].Scholarship__c);
 
         System.assertEquals('Increased', studentScholarship); 
+    }
 
+    @isTest static void testRecalculateScholarship_Regular() {
 
-        // Current average grade is (71<) 75 (>87)
-        insert new Class_Enrollment__c(Class__c = classes[1].Id, Student__c = students[0].Id, Grade__c = 50);
+        List <Student__c> students = [SELECT Id FROM Student__c];
+        List <Class__c> classes = new List <Class__c>();
+        
+        String studentScholarship;
+
+        classes = [SELECT Id FROM Class__c WHERE Year_of_Study__c = '1'];
+
+        insert new Class_Enrollment__c(Class__c = classes[0].Id, Student__c = students[0].Id, Grade__c = 75);
+
+        Test.startTest();
         SchoolService.recalculateScholarship(students[0].Id);
+        Test.stopTest();
         
         studentScholarship = string.valueof([SELECT Scholarship__c FROM Student__c WHERE Id = :students[0].Id].Scholarship__c);
 
         System.assertEquals('Regular', studentScholarship); 
+    }
 
-    
-        // Current average grade is (1<) 60 (>71)
-        insert new Class_Enrollment__c(Class__c = classes[2].Id, Student__c = students[0].Id, Grade__c = 30);
+    @isTest static void testRecalculateScholarship_Unassigned() {
+
+        List <Student__c> students = [SELECT Id FROM Student__c];
+        List <Class__c> classes = new List <Class__c>();
+        
+        String studentScholarship;
+
+        classes = [SELECT Id FROM Class__c WHERE Year_of_Study__c = '1'];
+
+        insert new Class_Enrollment__c(Class__c = classes[0].Id, Student__c = students[0].Id, Grade__c = 30);
+
+        Test.startTest();
         SchoolService.recalculateScholarship(students[0].Id);
+        Test.stopTest();
         
         studentScholarship = string.valueof([SELECT Scholarship__c FROM Student__c WHERE Id = :students[0].Id].Scholarship__c);
 
