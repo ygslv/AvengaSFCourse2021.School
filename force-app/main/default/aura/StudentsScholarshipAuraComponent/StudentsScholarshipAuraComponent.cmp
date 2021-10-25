@@ -9,6 +9,7 @@
         data="{!v.stList}"
         columns="{!v.columns}"
         keyField="id"
+        hideCheckboxColumn="true"
     />
 
 
