@@ -1,4 +1,4 @@
-public class StudentsAuraController {
+public class StudentAuraController {
     
     @AuraEnabled
     public static List<Student__c> getStudentsWithScholarship(){

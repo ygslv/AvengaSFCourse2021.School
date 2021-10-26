@@ -18,7 +18,7 @@ private class StudentAuraControllerTest {
     static void testGetStudentsWithScholarship() {
 
         Test.startTest();
-        List<Student__c> studentsWithScholarship = StudentsAuraController.getStudentsWithScholarship();
+        List<Student__c> studentsWithScholarship = StudentAuraController.getStudentsWithScholarship();
         Test.stopTest();
 
         System.assertEquals(2, studentsWithScholarship.size());

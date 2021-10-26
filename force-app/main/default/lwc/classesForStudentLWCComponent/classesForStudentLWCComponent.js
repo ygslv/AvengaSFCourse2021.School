@@ -1,7 +1,7 @@
 import { LightningElement, api, wire, track } from 'lwc';
-import getClassesForCurrentStudent from '@salesforce/apex/YearOfStudyClassesLWCController.getClassesForCurrentStudent';
+import getClassesForCurrentStudent from '@salesforce/apex/ClassesForStudentLWCComponent.getClassesForCurrentStudent';
 
-export default class classesForStudentLWC extends LightningElement {
+export default class ClassesForStudentLWCComponent extends LightningElement {
 
     @api recordId; 
 

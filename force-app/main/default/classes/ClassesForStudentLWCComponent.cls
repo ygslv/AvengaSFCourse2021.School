@@ -1,4 +1,4 @@
-public class YearOfStudyClassesLWCController {
+public class ClassesForStudentLWCComponent {
     
     @AuraEnabled(cacheable=true)
     public static List<ClassesForCurrentStudentWrapper> getClassesForCurrentStudent(Id studentId) {
