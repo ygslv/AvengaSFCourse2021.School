@@ -1,4 +1,4 @@
-<aura:component controller="StudentsAuraController" implements="flexipage:availableForAllPageTypes,force:appHostable" access="global">
+<aura:component controller="StudentAuraController" implements="flexipage:availableForAllPageTypes,force:appHostable" access="global">
 
     <aura:attribute name="stList" type="Student__c[]"/>
     <aura:attribute name="columns" type="List"/>
