@@ -9,6 +9,12 @@ export default class ClassesForStudentLWCComponent extends LightningElement {
     @track classList;
 
     @track columns = [{
+        label: 'Class Name',
+        fieldName: 'className',
+        type: 'text',
+        sortable: true
+    },
+    {
         label: 'Subject',
         fieldName: 'subject',
         type: 'text',
