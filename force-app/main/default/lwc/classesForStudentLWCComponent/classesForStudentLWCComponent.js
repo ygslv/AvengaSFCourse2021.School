@@ -8,7 +8,7 @@ export default class ClassesForStudentLWCComponent extends LightningElement {
     @track error;
     @track classList;
 
-    @track columns = [{
+    columns = [{
         label: 'Class Name',
         fieldName: 'className',
         type: 'text',
