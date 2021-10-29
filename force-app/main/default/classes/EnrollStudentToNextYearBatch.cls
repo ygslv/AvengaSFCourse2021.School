@@ -2,8 +2,7 @@ public class EnrollStudentToNextYearBatch implements Database.Batchable<SObject>
 
     public Database.QueryLocator start(Database.BatchableContext bc) {
 
-        String lastYear = '5';
-        String scholarshipQuery = 'SELECT Year_of_Study__c FROM Student__c WHERE Year_of_Study__c != :lastYear';
+        String scholarshipQuery = 'SELECT Year_of_Study__c FROM Student__c';
         
         return Database.getQueryLocator( scholarshipQuery );
     }
@@ -12,7 +11,14 @@ public class EnrollStudentToNextYearBatch implements Database.Batchable<SObject>
 
         for (Student__c c : scope) {
 
-            c.Year_of_Study__c = string.valueof(integer.valueof(c.Year_of_Study__c) + 1);
+            if (c.Year_of_Study__c == '5') {
+                
+                releaseStudentFromSchool(c);
+            }
+            else {
+
+                c.Year_of_Study__c = string.valueof(integer.valueof(c.Year_of_Study__c) + 1);
+            }
         }
 
         update scope;
@@ -21,5 +27,12 @@ public class EnrollStudentToNextYearBatch implements Database.Batchable<SObject>
     public void finish(Database.BatchableContext bc) {
 
 
+    }
+
+    public void releaseStudentFromSchool (Student__c student) {
+
+        student.Status__c = 'Graduated';
+
+        update student;  
     }
 }

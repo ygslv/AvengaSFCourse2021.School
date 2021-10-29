@@ -10,7 +10,7 @@ private class EnrollStudentToNextYearTest {
 
             String yearOfStudy = string.valueof(i+1);
 
-            testStudents.add(new Student__c(Name = ('TestStudent' + yearOfStudy), Year_of_Study__c = yearOfStudy));
+            testStudents.add(new Student__c(Name = ('TestStudent' + yearOfStudy), Year_of_Study__c = yearOfStudy, Status__c = 'Is studying'));
         }
 
         insert testStudents;
@@ -40,13 +40,13 @@ private class EnrollStudentToNextYearTest {
             Id batchId = Database.executeBatch(new EnrollStudentToNextYearBatch());
         Test.stopTest(); 
 
-        List<Student__c> studentsToCheck = [SELECT Name, Year_of_Study__c FROM Student__c];
+        List<Student__c> studentsToCheck = [SELECT Name, Year_of_Study__c, Status__c FROM Student__c];
 
         for (Student__c c : studentsToCheck) {
 
             if (c.Name == 'TestStudent1') { System.assertEquals('2', c.Year_of_Study__c); }
-            else if (c.Name == 'TestStudent4') { System.assertEquals('5', c.Year_of_Study__c); }
-            else if (c.Name == 'TestStudent5') { System.assertEquals('5', c.Year_of_Study__c); }
+            else if (c.Name == 'TestStudent4') { System.assertEquals('Is studying', c.Status__c); }
+            else if (c.Name == 'TestStudent5') { System.assertEquals('Graduated', c.Status__c); }
         }
     }
 }
