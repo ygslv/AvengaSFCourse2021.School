@@ -6,7 +6,7 @@ export default class ClassesForStudentLWCComponent extends LightningElement {
     @api recordId; 
 
     @track error;
-    @track classList;
+    @track clList;
 
     columns = [{
         label: 'Class Name',
@@ -31,7 +31,7 @@ export default class ClassesForStudentLWCComponent extends LightningElement {
         error, data
     }) {
         if (data) {
-            this.classList = data;
+            this.clList = data;
         } else if (error) {
             this.error = error;
         }

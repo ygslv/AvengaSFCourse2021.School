@@ -1,0 +1,9 @@
+<template>
+    <template if:true={stList}>
+        <lightning-datatable data={stList} columns={columns} key-field="Id" hide-checkbox-column="true">
+        </lightning-datatable>
+    </template>
+    <template if:true={error}>
+        {error}
+    </template>
+</template>
