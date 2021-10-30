@@ -9,13 +9,15 @@ public class HttpCalloutClassEnrollment {
     req.setEndpoint('https://avenga-school.herokuapp.com/delete-record');
     req.setMethod('DELETE');
 
-    // Send the request, and return a response
     HttpResponse res = http.send(req);
 
     return res;
   }
 
-  public static void HttpCalloutDeletingClassEnrollment(Integer statusCode, Id classEnrollmentId) {
+  @AuraEnabled
+  public static void HttpCalloutDeletingClassEnrollment(Id classEnrollmentId) {
+
+    Integer statusCode = HttpCalloutClassEnrollment(classEnrollmentId).getStatusCode();
 
     Class_Enrollment__c ce = new Class_Enrollment__c(Id = classEnrollmentId);
 
