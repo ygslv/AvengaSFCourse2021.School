@@ -45,4 +45,25 @@ public class SchoolService {
             update new Student__c(Id = studentId, Scholarship__c = 'Increased');
         }    
     }
+
+    public static void changeLectureStatus(List<Id> lectureIds, String status) {
+
+        String newStatus;
+
+        List<Lecture__c> lectures = new List<Lecture__c>();
+
+        for (Id lectureId : lectureIds) {
+
+            if (status == 'start') {
+                newStatus = 'In progress';
+            }
+            else if (status == 'end') {
+                newStatus = 'Is over';
+            }
+
+            lectures.add(new Lecture__c(Id = lectureId, Status__c = newStatus));
+        }
+
+        update lectures;
+    }
 }
