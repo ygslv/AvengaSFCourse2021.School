@@ -1,6 +1,6 @@
 public class LectureToClassHandlerTrigger {
     
-    public static void handleInsertion(List<Lecture_to_Class__c> lecturesToClasses) {
+    public static void handleBeforeInsertion(List<Lecture_to_Class__c> lecturesToClasses) {
 
         exceptionByInOneTimeLectures(lecturesToClasses);
     }

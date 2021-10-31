@@ -1,6 +1,11 @@
 trigger lectureTrigger on Lecture__c (before insert) {
 
-    if (Trigger.isInsert){
-        LectureHandlerTrigger.handleInsertion(Trigger.new);
+    if (Trigger.isBefore) {
+
+        if (Trigger.isInsert) {
+
+            LectureHandlerTrigger.handleBeforeInsertion(Trigger.new);
+        }
     }
+    
 }
