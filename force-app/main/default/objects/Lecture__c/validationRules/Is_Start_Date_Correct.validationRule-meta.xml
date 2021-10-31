@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Start_Date_Correct</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF ( Start_Date__c &lt;  NOW(), True, False )</errorConditionFormula>
+    <errorDisplayField>Start_Date__c</errorDisplayField>
+    <errorMessage>The beginning of the lecture cannot be earlier than the current time</errorMessage>
+</ValidationRule>
