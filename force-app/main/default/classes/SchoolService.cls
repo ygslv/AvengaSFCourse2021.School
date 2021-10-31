@@ -6,23 +6,6 @@ public class SchoolService {
         insert new class_Enrollment__c(Class__c = classId, Student__c = studentId);
     }
 
-    public static void enrollStudentsToClass(List<List<Id>> classIdToStudentId) {
-
-        // Create class enrollments for given classes and students. (bulk)
-        
-        List<Class_Enrollment__c> classEnrollments = new List<Class_Enrollment__c>();
-
-        for (List<Id> listOfIds : classIdToStudentId) {
-
-            Id classId = listOfIds[0]; // Class ID as first argument
-            Id stundetId = listOfIds[1]; // Student ID as the second argument
-
-            classEnrollments.add(new Class_Enrollment__c(Class__c = classId, Student__c = stundetId));
-        }
-
-        insert classEnrollments;
-    }
-
     public static void setGrade(Id classId, Id studentId, Integer grade) {
 
         // Set grade based on given class and student.
