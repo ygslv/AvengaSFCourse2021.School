@@ -2,7 +2,10 @@ public class LectureHandlerTrigger {
     
     public static void handleBeforeInsertion(List<Lecture__c> lectures) {
         
+        // preventing creation lecture, when lecturer and lecture subject does not match
         exceptionBySubject(lectures);
+
+        // Adding 1.5 hours to the start date to make end date if was blanc
         addEndDate(lectures);
     }
 
@@ -19,26 +22,23 @@ public class LectureHandlerTrigger {
 
     public static void exceptionBySubject(List<Lecture__c> lectures) {
 
-        List<Lecturer__c> lecturers = new List<Lecturer__c>();
-        System.debug('current lecture' + lectures);
-
-        //Set<Id> lecturersId = new Set<Id>();
+        Set<Id> lecturerIds = new Set<Id>();
 
         for (Lecture__c lecture : lectures) {
-            lecturers.add(lecture.Lecturer__r);
-            //lecturersId.add(lecture.Lecturer__r.Id);
+
+            lecturerIds.add(lecture.Lecturer__c);
         }
-        System.debug('lecturer: ' + lecturers);
-       // System.debug(lecturersId);
 
-        // List<Lecturer__c> lecturersAfter = [SELECT Subject__c FROM Lecturer__c WHERE Id IN :lecturersId];
+        Map<Id, Lecturer__c> lecturers = new Map<Id, Lecturer__c>([SELECT Id, Subject__c FROM Lecturer__c WHERE Id IN :lecturerIds]);
 
-        // for (Lecture__c lecture : lectures) {
+        
 
-        //     System.debug(lecture.Lecture_Subject__c);  
-        // }
+        for (Lecture__c lecture : lectures) {
 
-        // System.debug(lecturersAfter);
+            if (!lecturers.get(lecture.Lecturer__c).Subject__c.contains(lecture.Lecture_Subject__c)) {
+
+                lecture.addError('The subject for lecturer and lecture does not match');
+            }
+        }
     }
-
 }

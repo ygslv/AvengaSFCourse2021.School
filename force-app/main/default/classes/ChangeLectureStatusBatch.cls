@@ -12,7 +12,7 @@ public class ChangeLectureStatusBatch implements Database.Batchable<SObject> {
     public void execute(Database.BatchableContext bc, List<Lecture__c> scope) {
 
         // List<Lecture__c> lecturesList = new List<Lecture__c>();
-
+        
         // for (Lecture__c c : scope) {
 
         //     if (lecturesMap.isEmpty()) {
