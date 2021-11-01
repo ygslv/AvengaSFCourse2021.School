@@ -23,6 +23,25 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Academic leave</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Entrant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Graduated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Is studying</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Year_of_Study__c</picklist>
         <values>
             <fullName>1</fullName>
