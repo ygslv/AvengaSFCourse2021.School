@@ -13,11 +13,12 @@ export default class DeletingClassEnrollmentButtonLWCComponent extends Navigatio
         HttpCalloutDeletingClassEnrollment({classEnrollmentId : this.recordId})
         .then(() => {
             this.showToast('Success', 'The record has been deleted successfully!', 'Success');
+            this.navigateToListView();
         })
         .catch(error => {
             this.showToast('Error', 'There was an error deleting a record' + error.body.message , 'Error');
         })
-        this.navigateToListView();
+        
     } 
 
     showToast(title, message, variant) {
