@@ -20,17 +20,4 @@ private class HttpCalloutClassEnrollmentTest {
 
         System.assertEquals(200, res.getStatusCode());
     }
-
-    // @isTest static void testHttpCalloutDeletingClassEnrollment_StatusCode200() {
-
-    //     List <Class_Enrollment__c> classEnrollments = [SELECT Id FROM Class_Enrollment__c];
-
-    //     Test.startTest();
-    //     HttpCalloutClassEnrollment.HttpCalloutDeletingClassEnrollment(classEnrollments[0].Id);
-    //     Test.stopTest();
-
-    //     List <Class_Enrollment__c> classEnrollmentsToCheck = [SELECT Id FROM Class_Enrollment__c];
-
-    //     System.assertEquals(0, classEnrollmentsToCheck.size());
-    // }
 }
